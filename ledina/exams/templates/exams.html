@@ -1,0 +1,64 @@
+
+{% for exam in exams %}
+  <div class="exam-box{% if ref == exam.id %} refered{% endif %}" data-exam-id="{{ exam.pk }}" data-csrf="{{ csrf_token }}" data-path="{{ exam.exam_path }}" style="margin-top: 10px;">
+
+    <div class="exam-title">
+      <a href="/testi/{{ exam.exam_path }}?ref={{exam.pk}}"><b>Test številka {{ exam.exam_number }}</b></a>
+    </div>
+
+  <a class="exam-span-wrapper">
+    <div class="exam-box-el  exam-span-file">
+      <span class="glyphicon glyphicon-file"></span> Test
+    </div>
+
+    <ul class="exam-ul" style="display: none;">
+      {% for file in exam.examfile_set.all %}
+      <li class="exam-li-img" src="{{ file.exam_file.url }}" alt="Slika Testa" width="60" height="60" class="img-resposive exam-img">Slika Testa {{ forloop.counter }}</li>
+      {% endfor %}
+    </ul>
+
+  </a>
+
+  
+  <a class="comment">
+    <div class="exam-box-el"> 
+      <span class="glyphicon glyphicon-comment"></span> Komentarji
+    </div>
+  </a>
+
+{% if not exam.exam_user == user %}
+  <a class="mark-exam">
+    <div class="exam-box-el">
+      <span class="glyphicon glyphicon-ban-circle {% if user in exam.exam_mark.all %}active{% endif %}"></span> Potrebno popravka
+    </div>
+  </a>
+{% endif %}
+
+  <a>
+    <div class="exam-box-el">
+      <span class="glyphicon glyphicon-calendar"></span> {{ exam.exam_date|date:"d M Y" }}
+    </div>
+  </a>
+
+  <a href="{% url 'profile' exam.exam_user %}">
+    <div class="exam-box-el">
+      <span class="glyphicon glyphicon-user"></span> {{ exam.exam_user }}
+    </div>
+  </a> 
+
+  {% if exam.exam_user == user %}
+  <a href="#" class="remove-exam">
+    <div class="exam-box-el more">
+      <span class="glyphicon glyphicon-remove glyphicon-remove-exam"></span>
+        Odstrani
+    </div>
+  </a>
+  {% endif %}
+
+</div>
+
+
+
+{% endfor %}
+
+

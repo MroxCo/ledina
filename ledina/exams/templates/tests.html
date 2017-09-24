@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}Ekzam | {{ subject_id }}{% endblock %}
+
+{% block head %} 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/exams.css' %}"/>
+
+{% endblock head %}
+
+{% block body %}
+
+<div class="profile-header">
+  <a class="btn btn-primary pull-right add-btn" id="files-modal-button"><span class="glyphicon glyphicon-plus"></span> Dodaj Test </a>
+  <h1 class="subject-name">{% ifequal  subject_id 'Drugi-jezik' %}Drugi Jezik {% else %}{{ subject_id }}{% endifequal %}</h1> 
+</div>
+
+<div id="snackbar"></div>
+
+{% if exams %}
+  <div class="exam-box-parent">
+  {% include 'exams.html' %}
+  </div>
+{% else %}
+<h3>Test še ne obstaja</h3>
+
+{% endif %}
+
+{% include 'exam_comments.html' %}          
+{% include 'exam_image.html' %}
+
+
+<div class="modal fade" id="files-modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Dodaj Test</h4>
+      </div>
+
+      <div class="modal-body" style="margin: 0 20px;">
+        <form id="img-form" class="form-horizontal" role="form" method="post" enctype="multipart/form-data"  id="post-form">
+
+          {% csrf_token %}
+          <div id="error-div" class="alert alert-danger text-center">
+          </div>
+          <div class="form-group" csrf="{{ csrf_token }}">
+            <label for="exam_number">Številka testa:</label>
+              <select class="form-control" id="exam_number" name="exam_number">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+                <option>6</option>
+              </select>
+          </div>
+          <div class="form-group">
+            <label for="exam_file">Slike:</label>
+              <input  name="exam_file" type="file" accept="*" multiple required>
+          </div>
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Zapri</button>
+        <button  class="btn btn-primary img-form-btn">Shrani</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+
+
+
+document.onkeydown = checkKey;
+function checkKey(e) {
+e = e || window.event;
+if (e.keyCode == '37') {
+  $(".prev-btn").click();
+}
+else if (e.keyCode == '39') {
+  $(".next-btn").click();
+}
+else if (e.keyCode == '27') {
+  $(".imgmodal").hide();
+}
+
+}
+  
+</script>
+
+
+<script src="{% static 'js/exams.js' %}"></script>
+
+
+{% endblock %}

@@ -1,0 +1,1 @@
+web: gunicorn ledina.wsgi --log-file -

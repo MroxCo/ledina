@@ -1,0 +1,16 @@
+{% load humanize %}
+
+{% for comment in comments %}
+<li data-comment-pk="{{ comment.pk }}" data-csrf="{{ csrf_token }}" class="comment-list">
+  {% if comment.comment_user == user %}
+  <span class="glyphicon glyphicon-remove delete-comment" title="Odstrani"></span>
+  {% endif %}
+  <h4>
+    <a href="{% url 'profile' comment.comment_user %}">{{ comment.comment_user }}</a>
+    <small>{{ comment.comment_date|naturaltime }}</small>
+  </h4>
+  <h6>{{ comment.comment }}</h6>
+</li>
+{% empty %}
+  <div class="comments-none"><small>Ta test še nima komentarjev</small></div>
+{% endfor %}

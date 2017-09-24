@@ -1,0 +1,30 @@
+<div class="modal fade" id="comments-modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Komentarji</h4>
+      </div>
+      <div class="modal-body comments-modal-body">
+        <div id="comments-modal-clearfix" class="clearfix">
+        </div>
+        <div class="comments-modal-form">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div class="comments">
+          {% if user.is_authenticated %}
+          <span class="pull-right text-muted" id="comment-helper"><small>Ko končate pritisnite Enter</small></span>
+          <form role="form" method="post" onsubmit="return false">
+            {% csrf_token %}
+            <input type="hidden" name="exam_id" id="modal-exam-id">
+            <input type="text" class="form-control" id="comments-modal-input" placeholder="Dodaj komentar..." name="post" maxlength="255">
+          </form>
+
+          {% else %}<h3 class="comments-login"><small>Za dodajanje komentarjev se morate <a href="{% url 'login_user' %}" >prijaviti.</a></small></h3>       
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}Ekzam | Izberi{% endblock %}
+
+{% block head %} 
+  <link rel="stylesheet" type="text/css" href="{% static 'css/exams.css' %}"/>
+  <script src="{% static 'js/exams.js' %}"></script>
+{% endblock head %}
+
+{% block body %}
+
+<div class="profile-header" style="margin-bottom: 20px;">
+    <h1>Testi</h1>
+  </div>
+
+<div class="classes-base">
+<div class="row">
+<div class="col-lg-12 classes-parent">
+{% for LETTER in LETTERS %}
+<div class="classes-child">
+<div class="letter-accordion"><h5>Razred {{ LETTER }} <span class="plus-minus">+</span></h5></div>
+{% for SUBJECT in SUBJECTS %}
+<div class="subject-panel">
+<a href="{{ LETTER }}/{{ SUBJECT }}">{% ifequal  SUBJECT 'Drugi-jezik' %}Drugi Jezik {% else %}{{ SUBJECT }}{% endifequal %}</a>
+</div>
+  {% endfor %}
+  </div>
+{% endfor %}
+</div>
+</div>
+</div>
+
+
+
+{% endblock %}
+
+
+
+
+
+
+
+

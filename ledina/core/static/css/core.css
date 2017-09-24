@@ -1,0 +1,75 @@
+
+
+
+/* Home page */
+#homepage-jumbo {
+  background-color: rgb(85, 96, 128);
+  color: white;
+}  
+#homepage-title {
+  font-size: 15vh;
+  margin: 50px 0;
+}
+
+/* Profile */
+.profile-header {
+    border-bottom: 1px solid rgb(238, 238, 238);
+}
+.profile-image {
+    margin-top: 20px;
+}
+
+.user-profile .picture {
+  width: 200px;
+  border-radius: 5px;
+}
+
+.edit-username-input {
+  width: 20px;
+}
+.edit-username-wrap {
+  margin: 0 -10px 0 -15px;
+}
+
+.glyphicon-ok {
+  color: green;
+}
+.profile-exams {
+  margin: auto;
+}
+.profile-exams .exam-box:nth-child(3n + 1) {
+  clear: none; 
+ }
+.profile-exams .exam-box {
+  text-align: left;
+  float: none;
+  display: inline-block;
+}
+#profile-modal-comments {
+    max-height: 75vh;
+    overflow-y: auto;
+    margin: -15px;
+}
+.delete-comment {
+  color: #bbbbbb; 
+  font-size: .8em; 
+  padding-top: .2em;
+  float: right;
+  cursor: pointer;
+}
+.delete-comment:hover {
+  color: #333333;
+}
+@media only screen and (max-width: 768px){
+  .joined-date {
+    float: left;
+    margin-top: 2px;
+  }
+  .profile-header {
+    margin: 0;
+  }
+  .profile-comments-div {
+    margin: auto;
+    width: 150px;
+  }
+}

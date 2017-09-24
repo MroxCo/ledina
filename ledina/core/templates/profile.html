@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% load staticfiles %}
+{% block title %}Ekzam | {{ page_user }}{% endblock %}
+
+{% block head %} 
+  <link rel="stylesheet" href="{% static 'css/core.css' %}">
+  <link rel="stylesheet" href="{% static 'css/exams.css' %}">
+  <script src="{% static 'js/exams.js' %}"></script>
+{% endblock head %}
+
+{% block body %}
+
+
+
+<div id="snackbar"></div>
+
+
+<div class="profile-parent">
+ <div class="media" style="margin-bottom: 20px;" data-user-id="{{ page_user.pk }}" data-username="{{ page_user }}">
+      <div class="media-left">
+        <a href="">
+          <img class="media-object img-circle profile-img" src="{% static '/img/user.png' %}" alt="Slika Profila" style="width: 100px; height: 100px;">
+        </a>
+      </div>
+      <div class="media-body media-middle">
+        <div class="row">
+          <div class="col-sm-12">
+              <h2 class="media-heading">
+                {{ page_user }}
+                      
+              </h2>
+          </div>
+        </div>
+        <div class="row" style="color: #aaa;">
+          <div class="col-sm-6">
+            <span class="glyphicon glyphicon-envelope"></span>  {{ page_user.email }}
+          </div>
+          <div class="col-sm-6 text-right joined-date">
+            <span class="glyphicon glyphicon-time"></span> Pridružen {{ page_user.date_joined|date:"d M Y" }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+        <a href="#" class="btn btn-primary profile-comments" style="margin: 10px 0 5px 0">Komentarji</a>
+
+      <h4 style="color: rgb(50,50,50);">Objavljeni testi uporabnika {{ page_user }}</h4>
+        <div class="well text-center" style="padding: 2em 0;">
+          <div class="profile-exams">
+          {% if exams %}
+            {% include 'exams.html' %}
+          {% else %}
+          </div>
+          <div class="text-center">
+            <span class="glyphicon glyphicon-file" style="font-size: 2.6em; color: #aaa; margin-top: 10px;"></span>
+          <h3 style="margin-top: 25px; margin-bottom: 25px;">Uporabnik še ni objavil testov</h3>
+          </div>
+        {% endif %}
+        </div>
+
+
+
+
+</div>
+
+
+
+
+  <div class="modal fade" id="profile-comments-modal" role="dialog" >
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Komentarji uporabnika {{ page_user }}</h4>
+        </div>
+        <div class="modal-body">
+
+          <div class="clearfix" id="profile-modal-comments">
+          {% for comment in comments %}
+            <li data-comment-pk="{{ comment.pk }}" class="comment-list">
+              <h4>
+                <a href="{% url 'profile' comment.comment_user %}">{{ comment.comment_user }}</a>
+                <small>{{ comment.comment_date|naturaltime }}</small>
+              </h4>
+              <h6>{{ comment.comment }}</h6>
+              <a>{{ comment.comment_path }}</a>
+            </li>
+           {% empty %}
+          <div class="comments-none"><small>Uporabnik še nima komentarjev</small></div>
+           {% endfor %}
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+
+
+{% include 'exam_comments.html' %}  
+
+{% include 'exam_image.html' %}
+<script type="text/javascript">
+document.onkeydown = checkKey;
+function checkKey(e) {
+e = e || window.event;
+if (e.keyCode == '37') {
+  $(".prev-btn").click();
+}
+else if (e.keyCode == '39') {
+  $(".next-btn").click();
+}
+else if (e.keyCode == '27') {
+  $(".imgmodal").hide();
+}
+
+}
+
+
+</script>
+{% endblock %}
+

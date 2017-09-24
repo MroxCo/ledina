@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}Ekzam | Prijava{% endblock %}
+
+{% block head %} 
+  <link rel="stylesheet" href="{% static 'css/auth.css' %}">
+{% endblock head %}
+
+{% block body %}
+
+
+<div class="body-auth">
+<div class="cover-auth">
+    <h1 class="logo"></h1>
+    {% if error_message %}
+        <div class="alert alert-danger alert-dismissable">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+          {{ error_message }}
+        </div>
+    {% endif %}
+    <div class="login">
+      <h2>Prijava</h2>
+      <form accept-charset="UTF-8" class="form-signin" role="form" action="{% url 'login_user' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="username">Ime</label>
+          <input type="text" class="form-control" id="username" name="username" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Geslo</label>
+          <input type="password" class="form-control" id="password" name="password" required>
+        </div>
+        <div class="form-group" style="padding-top: 10px;">
+          <button type="submit" class="btn btn-default">Prijavi me</button>
+          <a href="{% url 'register' %}" style="margin-left: 10px;">Še nimate računa?</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+ {% endblock %}

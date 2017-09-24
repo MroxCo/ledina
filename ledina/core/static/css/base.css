@@ -1,0 +1,38 @@
+.noscript-body {
+    background-color: rgb(51, 122, 183);
+	top: 0;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	position: absolute;
+}
+
+
+
+
+/* more */
+#snackbar {
+    display: none;
+    min-width: 250px;
+    background-color: #262626;
+    color: #fff;
+    text-align: center;
+    border-radius: 2px;
+    padding: 16px;
+    position: fixed;
+    z-index: 3;
+    top: 90px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 17px;
+}
+
+@media only screen and (max-width: 768px){
+    .base-wrapper {
+        margin: 0px;
+    }
+    .website-wrapper {
+        margin: 70px 20px 0 20px;
+    }
+
+}
